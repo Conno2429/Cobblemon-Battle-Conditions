@@ -5,12 +5,15 @@
   "mixins": [
     "PokemonBattleMixin",
     "client.ConditionsDisplayGUIMixin",
+    "showdown.AbilityInstructionMixin",
+    "showdown.FaintInstructionMixin",
     "showdown.FieldEndInstructionMixin",
     "showdown.FieldStartInstructionMixin",
     "showdown.SideEndInstructionMixin",
     "showdown.SideStartInstructionMixin",
+    "showdown.SwapSideConditionsInstructionMixin",
+    "showdown.SwitchInstructionMixin",
     "showdown.TurnInstructionMixin",
-    "showdown.UpkeepInstructionMixin",
     "showdown.WeatherInstructionMixin"
   ],
   "injectors": {

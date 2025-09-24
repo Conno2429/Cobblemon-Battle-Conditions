@@ -1,8 +1,8 @@
 plugins {
     id("java")
-    id("dev.architectury.loom") version("1.7-SNAPSHOT")
+    id("dev.architectury.loom") version("1.10-SNAPSHOT")
     id("architectury-plugin") version("3.4-SNAPSHOT")
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "2.1.20"
 }
 
 group = "io.github.conno2429.cobblemonbattlecondtitions"
@@ -23,25 +23,35 @@ loom {
 
 repositories {
     mavenCentral()
+    maven("https://maven.parchmentmc.org")
     maven(url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
     maven("https://maven.impactdev.net/repository/development/")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
 }
 
 dependencies {
-    minecraft("net.minecraft:minecraft:1.20.1")
-    mappings("net.fabricmc:yarn:1.20.1+build.1")
-    modImplementation("net.fabricmc:fabric-loader:0.16.7")
+    minecraft("net.minecraft:minecraft:1.21.1")
+    "mappings"(loom.layered{
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.21.1:2024.11.17@zip")
+    })
+    modImplementation("net.fabricmc:fabric-loader:0.16.12")
 
-    modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:0.92.5+1.20.1")
-    modImplementation(fabricApi.module("fabric-command-api-v2", "0.92.5+1.20.1"))
+    modApi("net.fabricmc.fabric-api:fabric-api:0.115.4+1.21.1")
+//    modImplementation(fabricApi.module("fabric-command-api-v2", "0.115.4+1.21.1"))
 
-    modImplementation("net.fabricmc:fabric-language-kotlin:1.12.3+kotlin.2.0.21")
-    modImplementation("com.cobblemon:fabric:1.5.2+1.20.1")
+    modImplementation("net.fabricmc:fabric-language-kotlin:1.13.2+kotlin.2.1.20")
+    modImplementation("com.cobblemon:fabric:1.6.1+1.21.1")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 }
+
+java {
+    toolchain { languageVersion.set(JavaLanguageVersion.of(21)) }
+}
+tasks.withType<JavaCompile>().configureEach { options.release.set(21) }
+kotlin.jvmToolchain(21)
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()

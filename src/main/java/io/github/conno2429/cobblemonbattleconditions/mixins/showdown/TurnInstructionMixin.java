@@ -3,8 +3,7 @@ package io.github.conno2429.cobblemonbattleconditions.mixins.showdown;
 import com.cobblemon.mod.common.api.battles.interpreter.BattleMessage;
 import com.cobblemon.mod.common.api.battles.model.PokemonBattle;
 import com.cobblemon.mod.common.battles.interpreter.instructions.TurnInstruction;
-import io.github.conno2429.cobblemonbattleconditions.battle.CBCInstructionsProcessor;
-import kotlin.Pair;
+import io.github.conno2429.cobblemonbattleconditions.battle.BattleConditionsProcessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +16,11 @@ public abstract class TurnInstructionMixin {
 
     @Inject(method = "invoke", at = @At("TAIL"), remap = false)
     private void sideStartTrack(PokemonBattle battle, CallbackInfo ci) {
-//        CBCInstructionsProcessor.processTurns();
-        System.out.println("Turn call");
+        if (battle.getTurn() >= 1) {
+            battle.dispatchWaiting(0F, () -> {
+                BattleConditionsProcessor.updateCounters(battle);
+                return null;
+            });
+        }
     }
 }

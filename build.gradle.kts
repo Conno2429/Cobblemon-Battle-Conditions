@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.conno2429.cobblemonbattlecondtitions"
-version = "1.0.0-SNAPSHOT"
+version = "0.1.0-BETA"
 
 architectury {
     platformSetupLoomIde()

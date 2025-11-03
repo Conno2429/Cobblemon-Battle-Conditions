@@ -2,6 +2,7 @@ package io.github.conno2429.cobblemonbattleconditions.mixins.client;
 
 
 import com.cobblemon.mod.common.client.gui.battle.BattleOverlay;
+import io.github.conno2429.cobblemonbattleconditions.CobblemonBattleConditionsMod;
 import io.github.conno2429.cobblemonbattleconditions.client.BattleConditionsOverlay;
 import io.github.conno2429.cobblemonbattleconditions.client.CobblemonBattleConditionsClient;
 import net.minecraft.client.DeltaTracker;
@@ -16,8 +17,10 @@ public abstract class ConditionsDisplayGUIMixin {
 
     @Inject(method = "render", at = @At(value = "TAIL"))
     public void conditionsRenderMixin(GuiGraphics context, DeltaTracker tickDelta, CallbackInfo ci) {
-        if (CobblemonBattleConditionsClient.INSTANCE.getToggleConditions()) {
-            BattleConditionsOverlay.INSTANCE.renderConditionsOverlay(context);
+        if (CobblemonBattleConditionsMod.INSTANCE.isActive()) {
+            if (CobblemonBattleConditionsClient.INSTANCE.getToggleConditions()) {
+                BattleConditionsOverlay.INSTANCE.renderConditionsOverlay(context);
+            }
         }
     }
 }

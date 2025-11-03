@@ -28,7 +28,7 @@ object CobblemonBattleConditionsClient : ClientModInitializer {
                     "Toggle Battle Conditions",
                     InputConstants.Type.KEYSYM,
                     GLFW.GLFW_KEY_V,
-                    "Generations"
+                    "Cobblemon Battle Conditions"
                 )
                 // TODO: replace name/category with lang i'm lazy
             )

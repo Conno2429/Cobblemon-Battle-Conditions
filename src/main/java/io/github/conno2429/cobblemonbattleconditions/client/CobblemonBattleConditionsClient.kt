@@ -1,6 +1,7 @@
 package io.github.conno2429.cobblemonbattleconditions.client
 
 import com.mojang.blaze3d.platform.InputConstants
+import io.github.conno2429.cobblemonbattleconditions.CobblemonBattleConditionsMod
 import io.github.conno2429.cobblemonbattleconditions.network.CBCNetwork
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
@@ -14,6 +15,11 @@ object CobblemonBattleConditionsClient : ClientModInitializer {
 
 
     override fun onInitializeClient() {
+        if (!CobblemonBattleConditionsMod.isActive()) {
+            println("[CBC] Generations present — skipping standalone initialization")
+            return
+        }
+
         CBCNetwork.registerClientHandlers()
 
         TOGGLE_CONDITIONS_KEY =
